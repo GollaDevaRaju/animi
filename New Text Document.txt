@@ -1,0 +1,103 @@
+/*for raotating*/
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Circle Fade-In</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+  body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            height: 100vh; /* Full height sections */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circle {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c);
+            /* border-radius: 50%; */
+            opacity: 0; /* Initially hidden */
+            transform: rotate(-180deg) scale(0.5); /* Start with rotation and scaling */
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .circle.visible {
+            opacity: 1; /* Fully visible */
+            transform: rotate(360deg) scale(1); /* Rotate to 360 degrees and scale to normal size */
+            animation: spin 2s; /* Continuous spinning animation */
+        }
+
+        /* Keyframes for continuous spinning */
+        @keyframes spin {
+            from {
+                transform: rotate(0deg) scale(1);
+            }
+            to {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="circle"></div>
+    </div>
+    <div class="container">
+        <div class="circle"></div>
+    </div>
+    <div class="container">
+        <div class="circle"></div>
+    </div>
+    <div class="container">
+        <div class="circle"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            // Function to check if an element is in the viewport
+            function isInViewport(element) {
+                const rect = element[0].getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.bottom >= 0
+                );
+            }
+
+            // Function to handle rotation and fade-in on scroll
+            function handleScroll() {
+                $('.circle').each(function () {
+                    const $this = $(this);
+                    if (isInViewport($this)) {
+                        $this.addClass('visible'); // Add visible when in viewport
+                    } else {
+                        $this.removeClass('visible'); // Remove visible when out of viewport
+                    }
+                });
+            }
+
+            // Trigger handleScroll on page load and scroll
+            $(window).on('scroll', handleScroll);
+            handleScroll(); // Trigger on page load
+        });
+    </script>
+
+</body>
+</html>

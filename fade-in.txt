@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fade-in on Every Scroll</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .content {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            background: #f0f0f0;
+            margin: 0;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(30px); /* Start with a slight downward offset */
+            transition: opacity 3s ease-out, transform 1s ease-out;
+        }
+        .content.visible {
+            opacity: 1; /* Fully visible */
+            transform: translateY(0); /* Reset offset */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">Section 1</div>
+    <div class="content">Section 2</div>
+    <div class="content">Section 3</div>
+    <div class="content">Section 4</div>
+
+    <script>
+        $(document).ready(function () {
+            // Function to check if an element is in the viewport
+            function isInViewport(element) {
+                const rect = element[0].getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.bottom >= 0
+                );
+            }
+
+            // Function to handle fade-in and reset on scroll
+            function handleScroll() {
+                $('.content').each(function () {
+                    const $this = $(this);
+                    if (isInViewport($this)) {
+                        $this.addClass('visible'); // Add visible when in viewport
+                    } else {
+                        $this.removeClass('visible'); // Remove visible when out of viewport
+                    }
+                });
+            }
+
+            // Trigger handleScroll on page load and scroll
+            $(window).on('scroll', handleScroll);
+            handleScroll(); // Trigger on page load
+        });
+    </script>
+
+</body>
+</html>
