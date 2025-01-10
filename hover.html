@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hover Pop-up Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f4f4f4;
+    }
+
+    /* Centering the hyperlink */
+    a {
+      text-decoration: none;
+      color: #3498db;
+      font-size: 24px;
+      font-weight: bold;
+      position: relative;
+    }
+
+    a:hover {
+      color: #2980b9; /* Color when hovered */
+    }
+
+    /* Pop-up message styling */
+    .popup {
+      display: none;
+      position: absolute;
+      background-color: #333;
+      color: #111;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 14px;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 2s ease;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hyperlink -->
+<a href="#" class="hover-link">Hover over me!</a>
+
+<!-- Pop-up message -->
+<div class="popup">This is a pop-up message!</div>
+
+<script>
+  $(document).ready(function() {
+    // Hover event for the hyperlink
+    $('.hover-link').hover(function(e) {
+      // Get the mouse position relative to the page
+      var mouseX = e.pageX;
+      var mouseY = e.pageY;
+
+      // Position the pop-up near the mouse cursor
+      $('.popup').css({
+        left: mouseX + 30 + 'px', // 10px to the right of the cursor
+        top: mouseY + 10 + 'px'   // 10px below the cursor
+      }).fadeIn(100); // Fade in the pop-up
+
+    }, function() {
+      // When mouse leaves, fade out the pop-up
+      $('.popup').fadeOut(500);
+    });
+  });
+</script>
+
+</body>
+</html>
+
+
+<!--HTML:
+
+A hyperlink (<a href="#" class="hover-link">Hover over me!</a>) is placed in the center of the page.
+The div.popup is used to show the pop-up message when the hyperlink is hovered over.
+CSS:
+
+Centering the hyperlink: The body is styled to use flexbox (display: flex) to center the hyperlink (a) both vertically and horizontally in the viewport.
+Pop-up message styling:
+Initially hidden using display: none; and opacity: 0;.
+Positioned absolutely using position: absolute;, which allows us to control its exact position relative to the page.
+When shown, it will have a dark background, white text, padding, and rounded corners.
+jQuery:
+
+The .hover() function is used to detect when the mouse enters and leaves the hyperlink.
+On mouseenter:
+We calculate the mouse's position using e.pageX (horizontal position) and e.pageY (vertical position).
+We position the pop-up div 10px to the right (left: mouseX + 10px) and 10px below the cursor (top: mouseY + 10px).
+The fadeIn(300) method makes the pop-up appear with a smooth transition.
+On mouseleave:
+The fadeOut(300) method is used to smoothly hide the pop-up when the user stops hovering over the link.
+Result:
+The hyperlink "Hover over me!" will be centered on the page.
+When you hover over the hyperlink, a pop-up message ("This is a pop-up message!") will appear near the cursor.
+The pop-up will disappear when the mouse stops hovering over the hyperlink.
+Customization:
+Pop-up Position: You can adjust the 10px offset in the left and top CSS properties to change the distance of the pop-up from the cursor.
+Fade-in/Out Speed: You can adjust the duration of the fade-in and fade-out effects by changing the 300 value in fadeIn(300) and fadeOut(300) to control the speed.
+This solution should work reliably for creating a hover pop-up effect with jQuery, and the hyperlink will always remain centered on the page.
+
+
+
+
+-->

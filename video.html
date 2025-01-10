@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Modal on Click</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f4f4f4;
+    }
+
+    /* Hyperlink styling */
+    a {
+      text-decoration: none;
+      color: #3498db;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #2980b9;
+    }
+
+    /* Modal container */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* Ensure modal is on top */
+    }
+
+    /* Video container */
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* Video element */
+    .modal-content video {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Close button styling */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #ff0000;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hyperlink to trigger the video modal -->
+<a href="#" id="showVideo">Click here to watch the video</a>
+
+<!-- Modal for video -->
+<div class="modal" id="videoModal">
+  <div class="modal-content">
+    <button class="close-btn" id="closeModal">&times;</button>
+    <video controls>
+      <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    // When the hyperlink is clicked, show the modal
+    $('#showVideo').click(function(e) {
+      e.preventDefault(); // Prevent the default link behavior
+      $('#videoModal').fadeIn(300); // Show the modal with a fade-in effect
+    });
+
+    // When the close button is clicked, hide the modal
+    $('#closeModal').click(function() {
+      $('#videoModal').fadeOut(300); // Hide the modal with a fade-out effect
+    });
+
+    // When clicking anywhere outside the modal content, close the modal
+    $(window).click(function(event) {
+      if ($(event.target).is('#videoModal')) {
+        $('#videoModal').fadeOut(300); // Hide the modal if clicked outside
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
